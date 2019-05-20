@@ -1,6 +1,6 @@
 [package]
-name = "binance"
-version = "0.1.0"
+name = "rust-binance"
+version = "0.1.1"
 authors = ["hedgar2017 <hedgar2017@gmail.com>"]
 edition = "2018"
 license = "MIT"
