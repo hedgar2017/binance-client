@@ -29,6 +29,14 @@ impl Kline {
     pub fn is_red(&self) -> bool {
         self.close < self.open
     }
+
+    pub fn middle(&self) -> f64 {
+        (self.low + self.high) / 2.0
+    }
+
+    pub fn average(&self) -> f64 {
+        (self.low + self.open + self.close + self.high) / 4.0
+    }
 }
 
 impl Open for Kline {
