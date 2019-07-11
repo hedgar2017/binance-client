@@ -1,17 +1,18 @@
 //!
-//! The Binance client.
+//! The Binance client library.
 //!
 
-mod client;
-mod error;
-mod exchange;
-mod interval;
-mod kline;
+mod data;
+mod http;
+mod websocket;
 
 pub use self::{
-    client::Client,
-    error::Error,
-    exchange::{ExchangeInfo, Symbol},
-    interval::Interval,
-    kline::Kline,
+    data::{
+        ExchangeInfoGetResponse, ExchangeInfoSymbol, ExchangeInfoSymbolStatus, Interval, Kline,
+        KlinesGetRequest, KlinesGetResponse, OrderDeleteRequest, OrderDeleteResponse,
+        OrderGetRequest, OrderGetResponse, OrderPostRequest, OrderPostResponse, OrderSide,
+        OrderStatus, OrderType, Precision, TimeGetResponse, Trade,
+    },
+    http::{Client as HttpClient, Error as HttpError, Response as HttpResponse},
+    websocket::{Client as WebSocketClient, Error as WebSocketError},
 };
