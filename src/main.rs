@@ -32,6 +32,6 @@ fn init_logger() {
         env::set_var("RUST_LOG", "binance_client=info");
     }
     env_logger::Builder::from_default_env()
-        .default_format_timestamp_nanos(true)
+        .format_timestamp_nanos()
         .init();
 }

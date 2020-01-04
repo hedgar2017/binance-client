@@ -5,8 +5,9 @@
 use std::fmt;
 
 use serde_derive::Deserialize;
+use serde_derive::Serialize;
 
-#[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Debug, Deserialize, Serialize, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Interval {
     #[serde(rename = "m1")]
     Minute1,

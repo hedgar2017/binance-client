@@ -1,13 +1,13 @@
 [package]
 name = "binance-client"
-version = "1.0.0"
+version = "1.1.0"
 authors = ["hedgar2017 <hedgar2017@gmail.com>"]
 edition = "2018"
 license = "MIT"
 description = "The Binance cryptocurrency exchange client"
 
 [dependencies]
-env_logger = "0.6"
+env_logger = "0.7"
 log = "0.4"
 failure = "0.1"
 serde = "1.0"
@@ -18,7 +18,7 @@ rust_decimal = "1.0"
 chrono = "0.4"
 hmac = "0.7"
 sha2 = "0.8"
-hex = "0.3"
+hex = "0.4"
 
 reqwest = "0.9"
-websocket = "0.22"
+websocket = "0.24"
