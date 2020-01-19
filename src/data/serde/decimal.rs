@@ -19,7 +19,8 @@ impl<'de> serde::de::Visitor<'de> for Visitor {
     where
         E: serde::de::Error,
     {
-        use serde::de::{Error, Unexpected};
+        use serde::de::Error;
+        use serde::de::Unexpected;
         Decimal::from_str(s).map_err(|_| Error::invalid_value(Unexpected::Str(s), &self))
     }
 }

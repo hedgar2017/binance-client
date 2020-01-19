@@ -8,7 +8,11 @@ mod full;
 mod result;
 mod r#type;
 
-pub use self::{ack::Ack, fill::Fill, full::Full, r#type::Type, result::Result};
+pub use self::ack::Ack;
+pub use self::fill::Fill;
+pub use self::full::Full;
+pub use self::r#type::Type;
+pub use self::result::Result;
 
 use serde_derive::Deserialize;
 

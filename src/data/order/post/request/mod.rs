@@ -5,7 +5,10 @@
 use chrono::prelude::*;
 use rust_decimal::Decimal;
 
-use crate::data::order::{post::Type as ResponseType, Side, TimeInForce, Type};
+use crate::data::order::post::Type as ResponseType;
+use crate::data::order::Side;
+use crate::data::order::TimeInForce;
+use crate::data::order::Type;
 
 pub struct Request {
     symbol: String,

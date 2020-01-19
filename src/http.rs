@@ -3,8 +3,12 @@
 //!
 
 use failure::Fail;
-use reqwest::{Method, Url};
+use hmac::Hmac;
+use hmac::Mac;
+use reqwest::Method;
+use reqwest::Url;
 use serde_derive::Deserialize;
+use sha2::Sha256;
 
 use crate::data;
 
@@ -184,9 +188,6 @@ impl Client {
     fn signature(&self, params: &str) -> String {
         hex::encode(
             {
-                use hmac::{Hmac, Mac};
-                use sha2::Sha256;
-
                 let mut hmac: Hmac<Sha256> = Hmac::new_varkey(
                     self.secret_key
                         .as_ref()

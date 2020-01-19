@@ -5,7 +5,11 @@
 use rust_decimal::Decimal;
 use serde_derive::Deserialize;
 
-use crate::data::order::{post::Fill, Side, Status, TimeInForce, Type};
+use crate::data::order::post::Fill;
+use crate::data::order::Side;
+use crate::data::order::Status;
+use crate::data::order::TimeInForce;
+use crate::data::order::Type;
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]

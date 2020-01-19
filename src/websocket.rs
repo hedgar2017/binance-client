@@ -2,11 +2,13 @@
 //! The WebSocket adapter.
 //!
 
-use std::{sync::mpsc, thread};
+use std::sync::mpsc;
+use std::thread;
 
 use failure::Fail;
-use log::*;
-use websocket::{client::ClientBuilder, ws::dataframe::DataFrame, OwnedMessage};
+use websocket::client::ClientBuilder;
+use websocket::ws::dataframe::DataFrame;
+use websocket::OwnedMessage;
 
 use crate::data::Trade;
 
@@ -34,17 +36,17 @@ impl Client {
             let message = match client.recv_message() {
                 Ok(message) => {
                     if message.is_ping() {
-                        debug!("Received ping");
+                        log::debug!("Received ping");
                         match client.send_message(&OwnedMessage::Pong(b"pong frame".to_vec())) {
-                            Ok(()) => debug!("Sent pong"),
-                            Err(error) => warn!("Pong sending error: {}", error),
+                            Ok(()) => log::debug!("Sent pong"),
+                            Err(error) => log::warn!("Pong sending error: {}", error),
                         }
                         continue;
                     }
                     message.take_payload()
                 }
                 Err(error) => {
-                    error!("Websocket error: {}", error);
+                    log::error!("Websocket error: {}", error);
                     return;
                 }
             };
@@ -57,9 +59,9 @@ impl Client {
                 Ok(trade) => {
                     let _ = tx
                         .send(trade)
-                        .map_err(|error| warn!("Message sending error: {}", error));
+                        .map_err(|error| log::warn!("Message sending error: {}", error));
                 }
-                Err(error) => warn!("Parsing error: {} ({:?})", error, message),
+                Err(error) => log::warn!("Parsing error: {} ({:?})", error, message),
             }
         });
         Ok(rx)
