@@ -56,11 +56,10 @@ impl Client {
             }
 
             match serde_json::from_slice::<Trade>(&message) {
-                Ok(trade) => {
-                    let _ = tx
-                        .send(trade)
-                        .map_err(|error| log::warn!("Message sending error: {}", error));
-                }
+                Ok(trade) => match tx.send(trade) {
+                    Ok(()) => {},
+                    Err(_) => break,
+                },
                 Err(error) => log::warn!("Parsing error: {} ({:?})", error, message),
             }
         });
