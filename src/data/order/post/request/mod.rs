@@ -11,18 +11,18 @@ use crate::data::order::TimeInForce;
 use crate::data::order::Type;
 
 pub struct Request {
-    symbol: String,
-    side: Side,
-    r#type: Type,
-    time_in_force: Option<TimeInForce>,
-    quantity: Decimal,
-    price: Option<Decimal>,
-    new_client_order_id: Option<String>,
-    stop_price: Option<Decimal>,
-    iceberg_qty: Option<Decimal>,
-    new_order_resp_type: Option<ResponseType>,
-    recv_window: Option<i64>,
-    timestamp: i64,
+    pub symbol: String,
+    pub side: Side,
+    pub r#type: Type,
+    pub time_in_force: Option<TimeInForce>,
+    pub quantity: Decimal,
+    pub price: Option<Decimal>,
+    pub new_client_order_id: Option<String>,
+    pub stop_price: Option<Decimal>,
+    pub iceberg_qty: Option<Decimal>,
+    pub new_order_resp_type: Option<ResponseType>,
+    pub recv_window: Option<i64>,
+    pub timestamp: i64,
 }
 
 impl Request {

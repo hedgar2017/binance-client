@@ -57,7 +57,7 @@ impl Client {
 
             match serde_json::from_slice::<Trade>(&message) {
                 Ok(trade) => match tx.send(trade) {
-                    Ok(()) => {},
+                    Ok(()) => {}
                     Err(_) => break,
                 },
                 Err(error) => log::warn!("Parsing error: {} ({:?})", error, message),

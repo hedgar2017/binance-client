@@ -14,4 +14,6 @@ pub enum Status {
     Halt,
     AuctionMatch,
     Break,
+    #[serde(other)]
+    Other,
 }

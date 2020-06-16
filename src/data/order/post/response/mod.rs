@@ -25,11 +25,11 @@ pub enum Response {
 }
 
 impl Response {
-    pub fn client_order_id(&self) -> &str {
+    pub fn client_order_id(&self) -> String {
         match self {
-            Response::Full(response) => response.client_order_id(),
-            Response::Result(response) => response.client_order_id(),
-            Response::Ack(response) => response.client_order_id(),
+            Response::Full(response) => response.client_order_id.to_owned(),
+            Response::Result(response) => response.client_order_id.to_owned(),
+            Response::Ack(response) => response.client_order_id.to_owned(),
         }
     }
 }

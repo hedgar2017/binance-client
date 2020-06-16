@@ -42,4 +42,8 @@ pub enum Filter {
     },
     #[serde(rename_all = "camelCase")]
     MaxNumAlgoOrders { max_num_algo_orders: i64 },
+    #[serde(rename_all = "camelCase")]
+    MaxNumOrders { max_num_orders: i64 },
+    #[serde(other)]
+    Other,
 }

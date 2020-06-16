@@ -67,27 +67,27 @@ impl Client {
     }
 
     pub fn ping(&self) -> Result<()> {
-        self.execute::<()>(Method::GET, &format!("{}/api/v1/ping", Self::ADDRESS))
+        self.execute::<()>(Method::GET, &format!("{}/api/v3/ping", Self::ADDRESS))
     }
 
     pub fn time(&self) -> Result<data::TimeGetResponse> {
         self.execute::<data::TimeGetResponse>(
             Method::GET,
-            &format!("{}/api/v1/time", Self::ADDRESS),
+            &format!("{}/api/v3/time", Self::ADDRESS),
         )
     }
 
     pub fn exchange_info(&self) -> Result<data::ExchangeInfoGetResponse> {
         self.execute::<data::ExchangeInfoGetResponse>(
             Method::GET,
-            &format!("{}/api/v1/exchangeInfo", Self::ADDRESS),
+            &format!("{}/api/v3/exchangeInfo", Self::ADDRESS),
         )
     }
 
     pub fn klines(&self, request: data::KlinesGetRequest) -> Result<data::KlinesGetResponse> {
         self.execute::<data::KlinesGetResponse>(
             Method::GET,
-            &format!("{}/api/v1/klines?{}", Self::ADDRESS, request.to_string()),
+            &format!("{}/api/v3/klines?{}", Self::ADDRESS, request.to_string()),
         )
     }
 

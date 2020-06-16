@@ -5,7 +5,6 @@
 #[derive(Debug, Clone, Copy)]
 pub enum Type {
     Ack,
-    #[allow(dead_code)]
     Result,
     Full,
 }

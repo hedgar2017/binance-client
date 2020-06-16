@@ -9,10 +9,10 @@ use serde_derive::Deserialize;
 #[serde(rename_all = "camelCase")]
 pub struct Fill {
     #[serde(deserialize_with = "crate::data::serde::deserialize_decimal")]
-    price: Decimal,
+    pub price: Decimal,
     #[serde(deserialize_with = "crate::data::serde::deserialize_decimal")]
-    qty: Decimal,
+    pub qty: Decimal,
     #[serde(deserialize_with = "crate::data::serde::deserialize_decimal")]
-    commission: Decimal,
-    commission_asset: String,
+    pub commission: Decimal,
+    pub commission_asset: String,
 }

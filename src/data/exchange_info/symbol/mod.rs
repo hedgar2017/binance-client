@@ -3,9 +3,11 @@
 //!
 
 mod filter;
+mod permission;
 mod status;
 
 pub use self::filter::Filter;
+pub use self::permission::Permission;
 pub use self::status::Status;
 
 use rust_decimal::Decimal;
@@ -25,6 +27,7 @@ pub struct Symbol {
     pub order_types: Vec<OrderType>,
     pub iceberg_allowed: bool,
     pub filters: Vec<Filter>,
+    pub permissions: Vec<Permission>,
 }
 
 impl Symbol {
@@ -33,6 +36,10 @@ impl Symbol {
             Status::Trading => true,
             _ => false,
         }
+    }
+
+    pub fn has_margin(&self) -> bool {
+        self.permissions.contains(&Permission::Margin)
     }
 
     pub fn price_scale(&self) -> Option<u32> {

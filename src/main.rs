@@ -17,10 +17,7 @@ enum Error {
 fn main() -> Result<(), Error> {
     init_logger();
 
-    let http = HttpClient::new_with_auth(
-        "k1z5VNXUfX2VKKd6seRfvsxOSfNEcwEyLvoHSHu6mCGE0AMYXo7aKfgSDBbtIUN0".to_owned(),
-        "McRldEK59Enkelx9WNJgNZXjYBir990am9bJbwmdDx1kRjd4zfclUVYhbuiPpYCW".to_owned(),
-    );
+    let http = HttpClient::new();
     let info = http.exchange_info().map_err(Error::Http)?;
     for symbol in info
         .symbols

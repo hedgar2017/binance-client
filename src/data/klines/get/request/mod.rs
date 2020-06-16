@@ -5,11 +5,11 @@
 use crate::data::Interval;
 
 pub struct Request {
-    symbol: String,
-    interval: Interval,
-    start_time: Option<i64>,
-    end_time: Option<i64>,
-    limit: Option<usize>,
+    pub symbol: String,
+    pub interval: Interval,
+    pub start_time: Option<i64>,
+    pub end_time: Option<i64>,
+    pub limit: Option<usize>,
 }
 
 impl Request {

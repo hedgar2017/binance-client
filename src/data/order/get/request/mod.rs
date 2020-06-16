@@ -5,11 +5,11 @@
 use chrono::prelude::*;
 
 pub struct Request {
-    symbol: String,
-    order_id: Option<i64>,
-    orig_client_order_id: Option<String>,
-    recv_window: Option<i64>,
-    timestamp: i64,
+    pub symbol: String,
+    pub order_id: Option<i64>,
+    pub orig_client_order_id: Option<String>,
+    pub recv_window: Option<i64>,
+    pub timestamp: i64,
 }
 
 impl Request {
