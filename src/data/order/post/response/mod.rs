@@ -2,34 +2,41 @@
 //! The order POST response.
 //!
 
-mod ack;
-mod fill;
-mod full;
-mod result;
-mod r#type;
+pub mod ack;
+pub mod fill;
+pub mod full;
+pub mod result;
+pub mod r#type;
 
-pub use self::ack::Ack;
-pub use self::fill::Fill;
-pub use self::full::Full;
-pub use self::r#type::Type;
-pub use self::result::Result;
+use self::ack::Ack;
+use self::full::Full;
+use self::result::Result;
 
 use serde_derive::Deserialize;
 
+///
+/// The `https://www.binance.com/api/v3/order` POST response.
+///
 #[derive(Debug, Deserialize)]
 #[serde(untagged)]
 pub enum Response {
+    /// The full-type response. See the inner element description.
     Full(Full),
+    /// The result-type response. See the inner element description.
     Result(Result),
+    /// The ack-type response. See the inner element description.
     Ack(Ack),
 }
 
 impl Response {
+    ///
+    /// Returns the client order ID from the inner types.
+    ///
     pub fn client_order_id(&self) -> String {
         match self {
-            Response::Full(response) => response.client_order_id.to_owned(),
-            Response::Result(response) => response.client_order_id.to_owned(),
-            Response::Ack(response) => response.client_order_id.to_owned(),
+            Response::Full(inner) => inner.client_order_id.to_owned(),
+            Response::Result(inner) => inner.client_order_id.to_owned(),
+            Response::Ack(inner) => inner.client_order_id.to_owned(),
         }
     }
 }

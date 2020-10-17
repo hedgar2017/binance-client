@@ -1,33 +1,38 @@
 //!
-//! The WebSocket adapter.
+//! The Binance WebSocket adapter.
 //!
+
+pub mod error;
 
 use std::sync::mpsc;
 use std::thread;
 
-use failure::Fail;
 use websocket::client::ClientBuilder;
 use websocket::ws::dataframe::DataFrame;
 use websocket::OwnedMessage;
 
-use crate::data::Trade;
+use crate::data::trade::Trade;
 
+use self::error::Error;
+
+///
+/// The Binance WebSocket client.
+///
 pub struct Client {}
 
-#[derive(Fail, Debug)]
-pub enum Error {
-    #[fail(display = "Connection: {}", _0)]
-    Connection(websocket::WebSocketError),
-}
-
 impl Client {
+    ///
+    /// Subscribes to a `symbol`-dedicated trade stream.
+    ///
+    /// Returns the receiving channel end.
+    ///
     pub fn trade(symbol: String) -> Result<mpsc::Receiver<Trade>, Error> {
         let address = format!(
             "wss://stream.binance.com:9443/ws/{}@trade",
             symbol.to_ascii_lowercase()
         );
         let mut client = ClientBuilder::new(&address)
-            .expect("Websocket address parsing bug")
+            .expect(crate::panic::WEBSOCKET_ADDRESS_VALID)
             .connect_secure(None)
             .map_err(Error::Connection)?;
 
@@ -43,6 +48,7 @@ impl Client {
                         }
                         continue;
                     }
+
                     message.take_payload()
                 }
                 Err(error) => {

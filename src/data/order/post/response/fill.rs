@@ -5,14 +5,18 @@
 use rust_decimal::Decimal;
 use serde_derive::Deserialize;
 
+///
+/// The order partial fill.
+///
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Fill {
-    #[serde(deserialize_with = "crate::data::serde::deserialize_decimal")]
+    /// The trade event price.
     pub price: Decimal,
-    #[serde(deserialize_with = "crate::data::serde::deserialize_decimal")]
+    /// The trade event quantity.
     pub qty: Decimal,
-    #[serde(deserialize_with = "crate::data::serde::deserialize_decimal")]
+    /// The commission of the trade event.
     pub commission: Decimal,
+    /// The token of the commission of the trade event.
     pub commission_asset: String,
 }

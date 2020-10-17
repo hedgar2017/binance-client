@@ -2,35 +2,53 @@
 //! The exchange info symbol.
 //!
 
-mod filter;
-mod permission;
-mod status;
-
-pub use self::filter::Filter;
-pub use self::permission::Permission;
-pub use self::status::Status;
+pub mod filter;
+pub mod permission;
+pub mod status;
 
 use rust_decimal::Decimal;
 use serde_derive::Deserialize;
 
-use crate::data::order::Type as OrderType;
+use crate::data::order::r#type::Type as OrderType;
 
+use self::filter::Filter;
+use self::permission::Permission;
+use self::status::Status;
+
+///
+/// The trading symbol data.
+///
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Symbol {
+    /// The symbol name.
     pub symbol: String,
+    /// The symbol status on the exchange.
     pub status: Status,
+    /// The secondary token in the trading pair.
     pub base_asset: String,
+    /// The generic number of fractional digits in the secondary token.
+    /// Do not use for the price scale!
     pub base_asset_precision: usize,
+    /// The primary token in the trading pair.
     pub quote_asset: String,
+    /// The generic number of fractional digits in the primary token.
+    /// Do not use for the price scale!
     pub quote_precision: usize,
+    /// The order types allowed for the symbol.
     pub order_types: Vec<OrderType>,
+    /// If iceberd order is allowed for the symbol.
     pub iceberg_allowed: bool,
+    /// The conditions Binance puts on the symbol.
     pub filters: Vec<Filter>,
+    /// The allowed trading methods like spot, margin, etc.
     pub permissions: Vec<Permission>,
 }
 
 impl Symbol {
+    ///
+    /// If the symbol is active and can be normally traded.
+    ///
     pub fn is_trading(&self) -> bool {
         match self.status {
             Status::Trading => true,
@@ -38,10 +56,19 @@ impl Symbol {
         }
     }
 
+    ///
+    /// If margin trading is allowed for the symbol.
+    ///
     pub fn has_margin(&self) -> bool {
         self.permissions.contains(&Permission::Margin)
     }
 
+    ///
+    /// The number of fractional digits in the symbol price.
+    ///
+    /// E.g. `0.000256` has `6` fractional digits.
+    /// E.g. `0.42` has `2` fractional digits.
+    ///
     pub fn price_scale(&self) -> Option<u32> {
         for filter in self.filters.iter() {
             if let Filter::PriceFilter { tick_size, .. } = filter {
@@ -57,6 +84,9 @@ impl Symbol {
         None
     }
 
+    ///
+    /// The number of fractional digits in the symbol quantity.
+    ///
     pub fn quantity_scale(&self) -> Option<u32> {
         for filter in self.filters.iter() {
             if let Filter::LotSize { step_size, .. } = filter {

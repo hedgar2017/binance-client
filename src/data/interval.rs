@@ -7,43 +7,66 @@ use std::fmt;
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
 
+///
+/// The chart timeframe interval.
+///
 #[derive(Debug, Deserialize, Serialize, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Interval {
+    /// The 1 minute interval.
     #[serde(rename = "m1")]
     Minute1,
+    /// The 3 minutes interval.
     #[serde(rename = "m3")]
     Minute3,
+    /// The 5 minutes interval.
     #[serde(rename = "m5")]
     Minute5,
+    /// The 15 minutes interval.
     #[serde(rename = "m15")]
     Minute15,
+    /// The 30 minutes interval.
     #[serde(rename = "m30")]
     Minute30,
+    /// The 1 hour interval.
     #[serde(rename = "h1")]
     Hour1,
+    /// The 2 hours interval.
     #[serde(rename = "h2")]
     Hour2,
+    /// The 4 hours interval.
     #[serde(rename = "h4")]
     Hour4,
+    /// The 6 hours interval.
     #[serde(rename = "h6")]
     Hour6,
+    /// The 8 hours interval.
     #[serde(rename = "h8")]
     Hour8,
+    /// The 1 day interval.
     #[serde(rename = "d1")]
     Day1,
+    /// The 3 days interval.
     #[serde(rename = "d3")]
     Day3,
+    /// The 1 week interval.
     #[serde(rename = "w1")]
     Week1,
+    /// The 1 month interval.
     #[serde(rename = "M1")]
     Month1,
 }
 
 impl Interval {
+    /// Helper constant for calculating time intervals.
     const SECONDS_IN_A_MINUTE: i64 = 60;
+    /// Helper constant for calculating time intervals.
     const SECONDS_IN_AN_HOUR: i64 = Self::SECONDS_IN_A_MINUTE * 60;
+    /// Helper constant for calculating time intervals.
     const SECONDS_IN_A_DAY: i64 = Self::SECONDS_IN_AN_HOUR * 24;
 
+    ///
+    /// The interval duration in seconds.
+    ///
     pub fn secs(self) -> i64 {
         match self {
             Interval::Minute1 => Self::SECONDS_IN_A_MINUTE,

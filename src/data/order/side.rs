@@ -4,10 +4,15 @@
 
 use serde_derive::Deserialize;
 
+///
+/// The order side.
+///
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum Side {
+    /// The buy order.
     Buy,
+    /// The sell order.
     Sell,
 }
 
