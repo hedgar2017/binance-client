@@ -50,10 +50,7 @@ impl Symbol {
     /// If the symbol is active and can be normally traded.
     ///
     pub fn is_trading(&self) -> bool {
-        match self.status {
-            Status::Trading => true,
-            _ => false,
-        }
+        matches!(self.status, Status::Trading)
     }
 
     ///

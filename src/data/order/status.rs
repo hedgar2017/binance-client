@@ -31,19 +31,13 @@ impl Status {
     /// A shortcut predicate.
     ///
     pub fn is_partially_filled(self) -> bool {
-        match self {
-            Status::PartiallyFilled => true,
-            _ => false,
-        }
+        matches!(self, Status::PartiallyFilled)
     }
 
     ///
     /// A shortcut predicate.
     ///
     pub fn is_filled(self) -> bool {
-        match self {
-            Status::Filled => true,
-            _ => false,
-        }
+        matches!(self, Status::Filled)
     }
 }
