@@ -8,6 +8,8 @@ pub(crate) mod http;
 pub(crate) mod panic;
 pub(crate) mod websocket;
 
+pub use self::data::account::get::request::Query as AccountGetRequest;
+pub use self::data::account::get::response::Response as AccountGetResponse;
 pub use self::data::exchange_info::get::response::Response as ExchangeInfoGetResponse;
 pub use self::data::exchange_info::symbol::status::Status as ExchangeInfoSymbolStatus;
 pub use self::data::exchange_info::symbol::Symbol as ExchangeInfoSymbol;

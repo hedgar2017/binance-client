@@ -2,7 +2,7 @@
 //! The order side.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The order side.

@@ -2,7 +2,7 @@
 //! The order time in force.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The order time-in-force. See the below descriptions.

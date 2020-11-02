@@ -2,7 +2,7 @@
 //! The exchange info symbol status.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The status of a trading symbol.

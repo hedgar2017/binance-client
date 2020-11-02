@@ -2,7 +2,7 @@
 //! The order status.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The order status.

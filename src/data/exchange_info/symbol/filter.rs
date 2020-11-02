@@ -3,7 +3,7 @@
 //!
 
 use rust_decimal::Decimal;
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 #[derive(Debug, Deserialize, Clone, Copy)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE", tag = "filterType")]

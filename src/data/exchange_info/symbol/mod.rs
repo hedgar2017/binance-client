@@ -3,16 +3,15 @@
 //!
 
 pub mod filter;
-pub mod permission;
 pub mod status;
 
 use rust_decimal::Decimal;
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 use crate::data::order::r#type::Type as OrderType;
+use crate::data::permission::Permission;
 
 use self::filter::Filter;
-use self::permission::Permission;
 use self::status::Status;
 
 ///

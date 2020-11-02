@@ -2,7 +2,7 @@
 //! The response error.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]

@@ -2,7 +2,7 @@
 //! The exchange info symbol permission.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The trading method allowed for the symbol.

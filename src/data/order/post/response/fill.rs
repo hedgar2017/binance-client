@@ -3,7 +3,7 @@
 //!
 
 use rust_decimal::Decimal;
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The order partial fill.

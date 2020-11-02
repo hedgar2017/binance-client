@@ -3,7 +3,7 @@
 //!
 
 use rust_decimal::Decimal;
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 use crate::data::order::post::response::fill::Fill;
 use crate::data::order::r#type::Type;

@@ -2,7 +2,7 @@
 //! The time GET response.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The `https://www.binance.com/api/v3/time` GET response.

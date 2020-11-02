@@ -12,6 +12,8 @@ use reqwest::Method;
 use reqwest::Url;
 use sha2::Sha256;
 
+use crate::data::account::get::request::Query as AccountGetRequest;
+use crate::data::account::get::response::Response as AccountGetResponse;
 use crate::data::exchange_info::get::response::Response as ExchangeInfoGetResponse;
 use crate::data::klines::get::request::Query as KlinesGetRequest;
 use crate::data::klines::get::response::Response as KlinesGetResponse;
@@ -101,6 +103,24 @@ impl Client {
         self.execute::<KlinesGetResponse>(
             Method::GET,
             format!("/api/v3/klines?{}", request.to_string()),
+        )
+    }
+
+    ///
+    /// Get the account info and balances.
+    ///
+    pub fn account_get(&self, request: AccountGetRequest) -> Result<AccountGetResponse> {
+        let secret_key = self
+            .secret_key
+            .as_ref()
+            .ok_or(Error::AuthorizationKeysMissing)?;
+
+        let mut params = request.to_string();
+        params += &format!("&signature={}", Self::signature(&params, secret_key));
+
+        self.execute_signed::<AccountGetResponse>(
+            Method::GET,
+            format!("/api/v3/account?{}", params),
         )
     }
 

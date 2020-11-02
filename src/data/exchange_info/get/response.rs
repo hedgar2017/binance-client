@@ -2,7 +2,7 @@
 //! The exchange info GET response.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 use crate::data::exchange_info::symbol::Symbol;
 

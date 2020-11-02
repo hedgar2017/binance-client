@@ -12,7 +12,7 @@ use self::ack::Ack;
 use self::full::Full;
 use self::result::Result;
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The `https://www.binance.com/api/v3/order` POST response.

@@ -2,7 +2,7 @@
 //! The Binance HTTP response.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 use crate::data::error::Error as ResponseError;
 

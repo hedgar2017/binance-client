@@ -2,7 +2,7 @@
 //! The order POST response ack.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The `https://www.binance.com/api/v3/order` POST ack-type response.

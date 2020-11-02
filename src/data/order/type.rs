@@ -2,7 +2,7 @@
 //! The order type.
 //!
 
-use serde_derive::Deserialize;
+use serde::Deserialize;
 
 ///
 /// The order time.
