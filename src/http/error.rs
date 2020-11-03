@@ -23,9 +23,12 @@ pub enum Error {
     /// The request execution error. Usually happens due to some network errors.
     #[fail(display = "request execution: {}", _0)]
     RequestExecution(reqwest::Error),
+    /// The response reading error.
+    #[fail(display = "response reading: {}", _0)]
+    ResponseReading(reqwest::Error),
     /// The response parsing error. Binance returned invalid data or the data model must be updated.
     #[fail(display = "response parsing: {}", _0)]
-    ResponseParsing(reqwest::Error),
+    ResponseParsing(serde_json::Error),
     /// The response is valid, but Binance returned an application-level error.
     #[fail(display = "response error: {:?}", _0)]
     ResponseError(ResponseError),

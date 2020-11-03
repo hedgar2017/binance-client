@@ -255,7 +255,7 @@ impl Client {
     {
         let url = Self::BASE_URL.to_owned() + url.as_str();
 
-        let response: Response<T> = self
+        let response = self
             .inner
             .execute(
                 self.inner
@@ -267,8 +267,10 @@ impl Client {
                     .map_err(Error::RequestBuilding)?,
             )
             .map_err(Error::RequestExecution)?
-            .json()
-            .map_err(Error::ResponseParsing)?;
+            .text()
+            .map_err(Error::ResponseReading)?;
+        let response: Response<T> =
+            serde_json::from_str(response.as_str()).map_err(Error::ResponseParsing)?;
 
         match response {
             Response::Ok(response) => Ok(response),
@@ -290,7 +292,7 @@ impl Client {
 
         let url = Self::BASE_URL.to_owned() + url.as_str();
 
-        let response: Response<T> = self
+        let response = self
             .inner
             .execute(
                 self.inner
@@ -303,8 +305,10 @@ impl Client {
                     .map_err(Error::RequestBuilding)?,
             )
             .map_err(Error::RequestExecution)?
-            .json()
-            .map_err(Error::ResponseParsing)?;
+            .text()
+            .map_err(Error::ResponseReading)?;
+        let response: Response<T> =
+            serde_json::from_str(response.as_str()).map_err(Error::ResponseParsing)?;
 
         match response {
             Response::Ok(response) => Ok(response),
