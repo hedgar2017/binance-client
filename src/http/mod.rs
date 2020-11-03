@@ -12,16 +12,22 @@ use reqwest::Method;
 use reqwest::Url;
 use sha2::Sha256;
 
-use crate::data::account::get::request::Query as AccountGetRequest;
+use crate::data::account::get::request::Query as AccountGetQuery;
 use crate::data::account::get::response::Response as AccountGetResponse;
+use crate::data::depth::get::request::Query as DepthGetQuery;
+use crate::data::depth::get::response::Response as DepthGetResponse;
 use crate::data::exchange_info::get::response::Response as ExchangeInfoGetResponse;
-use crate::data::klines::get::request::Query as KlinesGetRequest;
+use crate::data::klines::get::request::Query as KlinesGetQuery;
 use crate::data::klines::get::response::Response as KlinesGetResponse;
-use crate::data::order::delete::request::Query as OrderDeleteRequest;
+use crate::data::open_orders::delete::request::Query as OpenOrdersDeleteQuery;
+use crate::data::open_orders::delete::response::Response as OpenOrdersDeleteResponse;
+use crate::data::open_orders::get::request::Query as OpenOrdersGetQuery;
+use crate::data::open_orders::get::response::Response as OpenOrdersGetResponse;
+use crate::data::order::delete::request::Query as OrderDeleteQuery;
 use crate::data::order::delete::response::Response as OrderDeleteResponse;
-use crate::data::order::get::request::Query as OrderGetRequest;
+use crate::data::order::get::request::Query as OrderGetQuery;
 use crate::data::order::get::response::Response as OrderGetResponse;
-use crate::data::order::post::request::Query as OrderPostRequest;
+use crate::data::order::post::request::Query as OrderPostQuery;
 use crate::data::order::post::response::Response as OrderPostResponse;
 use crate::data::time::get::response::Response as TimeGetResponse;
 
@@ -99,7 +105,7 @@ impl Client {
     /// Kline/candlestick bars for a symbol.
     /// Klines are uniquely identified by their open time.
     ///
-    pub fn klines(&self, request: KlinesGetRequest) -> Result<KlinesGetResponse> {
+    pub fn klines(&self, request: KlinesGetQuery) -> Result<KlinesGetResponse> {
         self.execute::<KlinesGetResponse>(
             Method::GET,
             format!("/api/v3/klines?{}", request.to_string()),
@@ -107,9 +113,19 @@ impl Client {
     }
 
     ///
+    /// The real-time market depth.
+    ///
+    pub fn depth(&self, request: DepthGetQuery) -> Result<DepthGetResponse> {
+        self.execute::<DepthGetResponse>(
+            Method::GET,
+            format!("/api/v3/depth?{}", request.to_string()),
+        )
+    }
+
+    ///
     /// Get the account info and balances.
     ///
-    pub fn account_get(&self, request: AccountGetRequest) -> Result<AccountGetResponse> {
+    pub fn account_get(&self, request: AccountGetQuery) -> Result<AccountGetResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
@@ -125,9 +141,48 @@ impl Client {
     }
 
     ///
+    /// Get the account open orders.
+    ///
+    pub fn open_orders_get(&self, request: OpenOrdersGetQuery) -> Result<OpenOrdersGetResponse> {
+        let secret_key = self
+            .secret_key
+            .as_ref()
+            .ok_or(Error::AuthorizationKeysMissing)?;
+
+        let mut params = request.to_string();
+        params += &format!("&signature={}", Self::signature(&params, secret_key));
+
+        self.execute_signed::<OpenOrdersGetResponse>(
+            Method::GET,
+            format!("/api/v3/openOrders?{}", params),
+        )
+    }
+
+    ///
+    /// Delete the account open orders.
+    ///
+    pub fn open_orders_delete(
+        &self,
+        request: OpenOrdersDeleteQuery,
+    ) -> Result<OpenOrdersDeleteResponse> {
+        let secret_key = self
+            .secret_key
+            .as_ref()
+            .ok_or(Error::AuthorizationKeysMissing)?;
+
+        let mut params = request.to_string();
+        params += &format!("&signature={}", Self::signature(&params, secret_key));
+
+        self.execute_signed::<OpenOrdersDeleteResponse>(
+            Method::DELETE,
+            format!("/api/v3/openOrders?{}", params),
+        )
+    }
+
+    ///
     /// Check an order's status.
     ///
-    pub fn order_get(&self, request: OrderGetRequest) -> Result<OrderGetResponse> {
+    pub fn order_get(&self, request: OrderGetQuery) -> Result<OrderGetResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
@@ -142,7 +197,7 @@ impl Client {
     ///
     /// Send in a new order.
     ///
-    pub fn order_post(&self, request: OrderPostRequest) -> Result<OrderPostResponse> {
+    pub fn order_post(&self, request: OrderPostQuery) -> Result<OrderPostResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
@@ -157,7 +212,7 @@ impl Client {
     ///
     /// Cancel an active order.
     ///
-    pub fn order_delete(&self, request: OrderDeleteRequest) -> Result<OrderDeleteResponse> {
+    pub fn order_delete(&self, request: OrderDeleteQuery) -> Result<OrderDeleteResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
@@ -176,7 +231,7 @@ impl Client {
     /// Test new order creation and signature/recvWindow long.
     /// Creates and validates a new order but does not send it into the matching engine.
     ///
-    pub fn order_post_test(&self, request: OrderPostRequest) -> Result<OrderPostResponse> {
+    pub fn order_post_test(&self, request: OrderPostQuery) -> Result<OrderPostResponse> {
         let secret_key = self
             .secret_key
             .as_ref()

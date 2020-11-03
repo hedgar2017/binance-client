@@ -1,5 +1,5 @@
 //!
-//! The trade.
+//! The trade event data, received via WebSocket.
 //!
 
 use rust_decimal::Decimal;
@@ -8,7 +8,7 @@ use serde::Deserialize;
 ///
 /// The trade event data, received via WebSocket.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 pub struct Trade {
     /// The trade event type. Usually equal to `trade`.
     #[serde(rename = "e")]

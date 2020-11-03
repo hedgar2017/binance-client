@@ -1,5 +1,5 @@
 //!
-//! The order POST response result.
+//! The open orders GET response.
 //!
 
 use rust_decimal::Decimal;
@@ -11,26 +11,29 @@ use crate::data::order_time_in_force::OrderTimeInForce;
 use crate::data::order_type::OrderType;
 
 ///
-/// The `https://www.binance.com/api/v3/order` POST result-type response.
+/// The `https://www.binance.com/api/v3/openOrders` GET response.
 ///
-/// Result response contains all the order data, except for the partial order fills.
+pub type Response = Vec<OpenOrder>;
+
+///
+/// A single open order element.
 ///
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Result {
+pub struct OpenOrder {
     /// The symbol name.
     pub symbol: String,
     /// The server-side order ID.
     pub order_id: i64,
+    /// The server-side order list ID.
+    pub order_list_id: i64,
     /// The client-side order ID.
     pub client_order_id: String,
-    /// The time when the order was acknowledged.
-    pub transact_time: i64,
     /// The order price.
     pub price: Decimal,
     /// The initial order quantity.
     pub orig_qty: Decimal,
-    /// The quantity executed so far. Usually equal to `orig_qty` for market orders.
+    /// The order quantity executed so far.
     pub executed_qty: Decimal,
     /// Usually the same as `executed_qty`.
     pub cummulative_quote_qty: Decimal,
@@ -42,4 +45,16 @@ pub struct Result {
     pub r#type: OrderType,
     /// The order side.
     pub side: OrderSide,
+    /// Used with `STOP_LOSS`, `STOP_LOSS_LIMIT`, `TAKE_PROFIT`, and `TAKE_PROFIT_LIMIT` orders.
+    pub stop_price: Decimal,
+    /// The iceberg order quantity.
+    pub iceberg_qty: Decimal,
+    /// The order time in milliseconds.
+    pub time: i64,
+    /// Usually the same as `time`.
+    pub update_time: i64,
+    /// Unknown value.
+    pub is_working: bool,
+    /// Usually the same as `orig_qty`.
+    pub orig_quote_order_qty: Decimal,
 }

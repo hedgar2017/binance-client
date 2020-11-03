@@ -5,6 +5,6 @@
 use crate::data::klines::kline::Kline;
 
 ///
-/// The kline GET response, which is a simple array of klines.
+/// The `https://www.binance.com/api/v3/klines` GET response.
 ///
 pub type Response = Vec<Kline>;

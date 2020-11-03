@@ -8,7 +8,7 @@ pub mod status;
 use rust_decimal::Decimal;
 use serde::Deserialize;
 
-use crate::data::order::r#type::Type as OrderType;
+use crate::data::order_type::OrderType;
 use crate::data::permission::Permission;
 
 use self::filter::Filter;

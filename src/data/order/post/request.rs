@@ -6,9 +6,9 @@ use chrono::prelude::*;
 use rust_decimal::Decimal;
 
 use crate::data::order::post::response::r#type::Type as ResponseType;
-use crate::data::order::r#type::Type;
-use crate::data::order::side::Side;
-use crate::data::order::time_in_force::TimeInForce;
+use crate::data::order_side::OrderSide;
+use crate::data::order_time_in_force::OrderTimeInForce;
+use crate::data::order_type::OrderType;
 
 ///
 /// The `https://www.binance.com/api/v3/order` POST request query.
@@ -17,11 +17,11 @@ pub struct Query {
     /// The symbol name.
     pub symbol: String,
     /// The order side.
-    pub side: Side,
+    pub side: OrderSide,
     /// The order type.
-    pub r#type: Type,
+    pub r#type: OrderType,
     /// The order time-in-force.
-    pub time_in_force: Option<TimeInForce>,
+    pub time_in_force: Option<OrderTimeInForce>,
     /// The order quantity.
     pub quantity: Decimal,
     /// The order price. Required for limit orders.
@@ -42,17 +42,17 @@ pub struct Query {
 }
 
 impl Query {
-    /// The URL GET query params default capacity.
+    /// The query params default capacity.
     const QUERY_INITIAL_CAPACITY: usize = 255;
 
     ///
     /// Creates a market order request.
     ///
-    pub fn market(symbol: &str, side: Side, quantity: Decimal) -> Self {
+    pub fn market(symbol: &str, side: OrderSide, quantity: Decimal) -> Self {
         Self {
             symbol: symbol.to_owned(),
             side,
-            r#type: Type::Market,
+            r#type: OrderType::Market,
             time_in_force: None,
             quantity,
             price: None,
@@ -68,12 +68,12 @@ impl Query {
     ///
     /// Creates a limit order request.
     ///
-    pub fn limit(symbol: &str, side: Side, quantity: Decimal, price: Decimal) -> Self {
+    pub fn limit(symbol: &str, side: OrderSide, quantity: Decimal, price: Decimal) -> Self {
         Self {
             symbol: symbol.to_owned(),
             side,
-            r#type: Type::Limit,
-            time_in_force: Some(TimeInForce::GoodTilCanceled),
+            r#type: OrderType::Limit,
+            time_in_force: Some(OrderTimeInForce::GoodTilCanceled),
             quantity,
             price: Some(price),
             new_client_order_id: None,

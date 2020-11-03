@@ -8,7 +8,7 @@ use serde::Deserialize;
 /// The order time-in-force. See the below descriptions.
 ///
 #[derive(Debug, Deserialize, Clone, Copy)]
-pub enum TimeInForce {
+pub enum OrderTimeInForce {
     /// The default time-in-force. Effective until the trade is executed or cancelled.
     #[serde(rename = "GTC")]
     GoodTilCanceled,
@@ -20,12 +20,12 @@ pub enum TimeInForce {
     FillOrKill,
 }
 
-impl ToString for TimeInForce {
+impl ToString for OrderTimeInForce {
     fn to_string(&self) -> String {
         match self {
-            TimeInForce::GoodTilCanceled => "GTC",
-            TimeInForce::ImmediateOrCancel => "IOC",
-            TimeInForce::FillOrKill => "FOK",
+            Self::GoodTilCanceled => "GTC",
+            Self::ImmediateOrCancel => "IOC",
+            Self::FillOrKill => "FOK",
         }
         .to_owned()
     }

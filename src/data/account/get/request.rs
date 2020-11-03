@@ -21,7 +21,7 @@ impl Default for Query {
 }
 
 impl Query {
-    /// The URL GET query params default capacity.
+    /// The query params default capacity.
     const QUERY_INITIAL_CAPACITY: usize = 256;
 
     ///

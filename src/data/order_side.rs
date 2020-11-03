@@ -9,18 +9,18 @@ use serde::Deserialize;
 ///
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
-pub enum Side {
+pub enum OrderSide {
     /// The buy order.
     Buy,
     /// The sell order.
     Sell,
 }
 
-impl ToString for Side {
+impl ToString for OrderSide {
     fn to_string(&self) -> String {
         match self {
-            Side::Buy => "BUY",
-            Side::Sell => "SELL",
+            Self::Buy => "BUY",
+            Self::Sell => "SELL",
         }
         .to_owned()
     }

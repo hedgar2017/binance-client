@@ -9,7 +9,7 @@ use serde::Deserialize;
 ///
 #[derive(Debug, Deserialize, Clone, Copy)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
-pub enum Type {
+pub enum OrderType {
     /// The limit order.
     Limit,
     /// The market order.
@@ -29,17 +29,17 @@ pub enum Type {
     Other,
 }
 
-impl ToString for Type {
+impl ToString for OrderType {
     fn to_string(&self) -> String {
         match self {
-            Type::Limit => "LIMIT",
-            Type::Market => "MARKET",
-            Type::StopLoss => "STOP_LOSS",
-            Type::StopLossLimit => "STOP_LOSS_LIMIT",
-            Type::TakeProfit => "TAKE_PROFIT",
-            Type::TakeProfitLimit => "TAKE_PROFIT_LIMIT",
-            Type::LimitMaker => "LIMIT_MAKER",
-            Type::Other => "OTHER",
+            Self::Limit => "LIMIT",
+            Self::Market => "MARKET",
+            Self::StopLoss => "STOP_LOSS",
+            Self::StopLossLimit => "STOP_LOSS_LIMIT",
+            Self::TakeProfit => "TAKE_PROFIT",
+            Self::TakeProfitLimit => "TAKE_PROFIT_LIMIT",
+            Self::LimitMaker => "LIMIT_MAKER",
+            Self::Other => "OTHER",
         }
         .to_owned()
     }

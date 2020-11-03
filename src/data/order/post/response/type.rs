@@ -18,9 +18,9 @@ pub enum Type {
 impl ToString for Type {
     fn to_string(&self) -> String {
         match self {
-            Type::Ack => "ACK",
-            Type::Result => "RESULT",
-            Type::Full => "FULL",
+            Self::Ack => "ACK",
+            Self::Result => "RESULT",
+            Self::Full => "FULL",
         }
         .to_owned()
     }

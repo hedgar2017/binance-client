@@ -1,12 +1,12 @@
 //!
-//! The kline.
+//! A single kline.
 //!
 
 use rust_decimal::Decimal;
 use serde::Deserialize;
 
 ///
-/// The kline data.
+/// A single kline.
 ///
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]

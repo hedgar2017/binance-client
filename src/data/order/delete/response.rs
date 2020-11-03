@@ -5,10 +5,10 @@
 use rust_decimal::Decimal;
 use serde::Deserialize;
 
-use crate::data::order::r#type::Type;
-use crate::data::order::side::Side;
-use crate::data::order::status::Status;
-use crate::data::order::time_in_force::TimeInForce;
+use crate::data::order_side::OrderSide;
+use crate::data::order_status::OrderStatus;
+use crate::data::order_time_in_force::OrderTimeInForce;
+use crate::data::order_type::OrderType;
 
 ///
 /// The `https://www.binance.com/api/v3/order` POST response.
@@ -33,11 +33,11 @@ pub struct Response {
     /// Usually the same as `executed_qty`.
     pub cummulative_quote_qty: Decimal,
     /// The order status, which must be `CANCELED`.
-    pub status: Status,
+    pub status: OrderStatus,
     /// The order time-in-force.
-    pub time_in_force: TimeInForce,
+    pub time_in_force: OrderTimeInForce,
     /// The order type.
-    pub r#type: Type,
+    pub r#type: OrderType,
     /// The order side.
-    pub side: Side,
+    pub side: OrderSide,
 }
