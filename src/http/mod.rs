@@ -269,8 +269,8 @@ impl Client {
             .map_err(Error::RequestExecution)?
             .text()
             .map_err(Error::ResponseReading)?;
-        let response: Response<T> =
-            serde_json::from_str(response.as_str()).map_err(Error::ResponseParsing)?;
+        let response: Response<T> = serde_json::from_str(response.as_str())
+            .map_err(|error| Error::ResponseParsing(error, response))?;
 
         match response {
             Response::Ok(response) => Ok(response),
@@ -307,8 +307,8 @@ impl Client {
             .map_err(Error::RequestExecution)?
             .text()
             .map_err(Error::ResponseReading)?;
-        let response: Response<T> =
-            serde_json::from_str(response.as_str()).map_err(Error::ResponseParsing)?;
+        let response: Response<T> = serde_json::from_str(response.as_str())
+            .map_err(|error| Error::ResponseParsing(error, response))?;
 
         match response {
             Response::Ok(response) => Ok(response),

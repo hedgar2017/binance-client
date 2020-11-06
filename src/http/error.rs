@@ -27,8 +27,8 @@ pub enum Error {
     #[fail(display = "response reading: {}", _0)]
     ResponseReading(reqwest::Error),
     /// The response parsing error. Binance returned invalid data or the data model must be updated.
-    #[fail(display = "response parsing: {}", _0)]
-    ResponseParsing(serde_json::Error),
+    #[fail(display = "response parsing: {} ({})", _0, _1)]
+    ResponseParsing(serde_json::Error, String),
     /// The response is valid, but Binance returned an application-level error.
     #[fail(display = "response error: {:?}", _0)]
     ResponseError(ResponseError),
