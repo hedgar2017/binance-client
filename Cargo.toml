@@ -5,6 +5,7 @@ authors = ["hedgar2017 <hedgar2017@gmail.com>"]
 edition = "2018"
 license = "MIT"
 description = "The Binance cryptocurrency exchange client"
+repository = "https://github.com/hedgar2017/binance-client"
 
 [dependencies]
 env_logger = "0.8"

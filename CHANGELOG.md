@@ -1,5 +1,10 @@
 # The Binance client changelog
 
+## Version 1.4.0 (2021-01-18)
+
+- added the 12-hour interval
+- changed the interval entity interface
+
 ## Version 1.3.0 (2021-01-12)
 
 - added the depth WebSocket to receive the market updates
