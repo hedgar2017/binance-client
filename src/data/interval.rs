@@ -14,49 +14,49 @@ use serde::Serialize;
 #[derive(Debug, Deserialize, Serialize, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Interval {
     /// The 1 minute interval.
-    #[serde(rename = "m1")]
+    #[serde(rename = "1m")]
     Minute1,
     /// The 3 minutes interval.
-    #[serde(rename = "m3")]
+    #[serde(rename = "3m")]
     Minute3,
     /// The 5 minutes interval.
-    #[serde(rename = "m5")]
+    #[serde(rename = "5m")]
     Minute5,
     /// The 15 minutes interval.
-    #[serde(rename = "m15")]
+    #[serde(rename = "15m")]
     Minute15,
     /// The 30 minutes interval.
-    #[serde(rename = "m30")]
+    #[serde(rename = "30m")]
     Minute30,
     /// The 1 hour interval.
-    #[serde(rename = "H1")]
+    #[serde(rename = "1H")]
     Hour1,
     /// The 2 hours interval.
-    #[serde(rename = "H2")]
+    #[serde(rename = "2H")]
     Hour2,
     /// The 4 hours interval.
-    #[serde(rename = "H4")]
+    #[serde(rename = "4H")]
     Hour4,
     /// The 6 hours interval.
-    #[serde(rename = "H6")]
+    #[serde(rename = "6H")]
     Hour6,
     /// The 8 hours interval.
-    #[serde(rename = "H8")]
+    #[serde(rename = "8H")]
     Hour8,
     /// The 12 hours interval.
-    #[serde(rename = "H12")]
+    #[serde(rename = "12H")]
     Hour12,
     /// The 1 day interval.
-    #[serde(rename = "D1")]
+    #[serde(rename = "1D")]
     Day1,
     /// The 3 days interval.
-    #[serde(rename = "D3")]
+    #[serde(rename = "3D")]
     Day3,
     /// The 1 week interval.
-    #[serde(rename = "W1")]
+    #[serde(rename = "1W")]
     Week1,
     /// The 1 month interval.
-    #[serde(rename = "M1")]
+    #[serde(rename = "1M")]
     Month1,
 }
 
@@ -113,21 +113,21 @@ impl fmt::Display for Interval {
             f,
             "{}",
             match self {
-                Interval::Minute1 => "m1",
-                Interval::Minute3 => "m3",
-                Interval::Minute5 => "m5",
-                Interval::Minute15 => "m15",
-                Interval::Minute30 => "m30",
-                Interval::Hour1 => "H1",
-                Interval::Hour2 => "H2",
-                Interval::Hour4 => "H4",
-                Interval::Hour6 => "H6",
-                Interval::Hour8 => "H8",
-                Interval::Hour12 => "H12",
-                Interval::Day1 => "D1",
-                Interval::Day3 => "D3",
-                Interval::Week1 => "W1",
-                Interval::Month1 => "M1",
+                Interval::Minute1 => "1m",
+                Interval::Minute3 => "3m",
+                Interval::Minute5 => "5m",
+                Interval::Minute15 => "15m",
+                Interval::Minute30 => "30m",
+                Interval::Hour1 => "1h",
+                Interval::Hour2 => "2h",
+                Interval::Hour4 => "4h",
+                Interval::Hour6 => "6h",
+                Interval::Hour8 => "8h",
+                Interval::Hour12 => "12h",
+                Interval::Day1 => "1d",
+                Interval::Day3 => "3d",
+                Interval::Week1 => "1w",
+                Interval::Month1 => "1M",
             }
         )
     }
