@@ -26,10 +26,10 @@ pub struct Depth {
     /// The last update ID.
     #[serde(rename = "u")]
     pub last_update_id: i64,
-    /// The bids below the current price.
+    /// The orders below the current price.
     #[serde(rename = "b")]
     pub bids: Vec<DepthElement>,
-    /// The asks above the current price.
+    /// The orders above the current price.
     #[serde(rename = "a")]
     pub asks: Vec<DepthElement>,
 }

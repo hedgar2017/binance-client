@@ -20,6 +20,7 @@ use self::error::Error;
 ///
 /// The Binance WebSocket client.
 ///
+#[derive(Debug, Clone)]
 pub struct Client {}
 
 impl Client {

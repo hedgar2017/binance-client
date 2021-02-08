@@ -37,6 +37,7 @@ use self::response::Response;
 ///
 /// The Binance HTTP client.
 ///
+#[derive(Debug, Clone)]
 pub struct Client {
     /// The inner HTTP client.
     inner: reqwest::Client,
