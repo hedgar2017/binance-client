@@ -22,8 +22,10 @@ pub struct Query {
     pub r#type: OrderType,
     /// The order time-in-force.
     pub time_in_force: Option<OrderTimeInForce>,
-    /// The order quantity.
-    pub quantity: Decimal,
+    /// The order quantity in the secondary asset.
+    pub quantity: Option<Decimal>,
+    /// The order quantity in the primary asset.
+    pub quote_order_qty: Option<Decimal>,
     /// The order price. Required for limit orders.
     pub price: Option<Decimal>,
     /// A unique id for the order. Automatically generated if not sent.
@@ -48,13 +50,25 @@ impl Query {
     ///
     /// Creates a market order request.
     ///
-    pub fn market(symbol: &str, side: OrderSide, quantity: Decimal) -> Self {
+    pub fn market(
+        symbol: &str,
+        side: OrderSide,
+        quantity: Decimal,
+        use_base_quantity: bool,
+    ) -> Self {
+        let (quantity, quote_order_qty) = if use_base_quantity {
+            (None, Some(quantity))
+        } else {
+            (Some(quantity), None)
+        };
+
         Self {
             symbol: symbol.to_owned(),
             side,
             r#type: OrderType::Market,
             time_in_force: None,
             quantity,
+            quote_order_qty,
             price: None,
             new_client_order_id: None,
             stop_price: None,
@@ -74,7 +88,8 @@ impl Query {
             side,
             r#type: OrderType::Limit,
             time_in_force: Some(OrderTimeInForce::GoodTilCanceled),
-            quantity,
+            quantity: Some(quantity),
+            quote_order_qty: None,
             price: Some(price),
             new_client_order_id: None,
             stop_price: None,
@@ -95,7 +110,12 @@ impl ToString for Query {
         if let Some(time_in_force) = self.time_in_force {
             params += &format!("&timeInForce={}", time_in_force.to_string());
         }
-        params += &format!("&quantity={}", self.quantity.to_string());
+        if let Some(quantity) = self.quantity {
+            params += &format!("&quantity={}", quantity.to_string());
+        }
+        if let Some(quote_order_qty) = self.quote_order_qty {
+            params += &format!("&quoteOrderQty={}", quote_order_qty.to_string());
+        }
         if let Some(price) = self.price {
             params += &format!("&price={}", price.to_string());
         }
