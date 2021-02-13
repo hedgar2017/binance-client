@@ -2,10 +2,9 @@
 //! The Binance client library.
 //!
 
-pub(crate) mod r#const;
 pub(crate) mod data;
+pub(crate) mod error;
 pub(crate) mod http;
-pub(crate) mod panic;
 pub(crate) mod websocket;
 
 pub use self::data::account::get::request::Query as AccountGetQuery;
@@ -38,8 +37,7 @@ pub use self::data::order_side::OrderSide;
 pub use self::data::order_status::OrderStatus;
 pub use self::data::order_type::OrderType;
 pub use self::data::time::get::response::Response as TimeGetResponse;
-pub use self::http::error::Error as HttpError;
+pub use self::error::Error;
 pub use self::http::response::Response as HttpResponse;
 pub use self::http::Client as HttpClient;
-pub use self::websocket::error::Error as WebSocketError;
 pub use self::websocket::Client as WebSocketClient;

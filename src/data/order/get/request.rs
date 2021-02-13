@@ -33,7 +33,7 @@ impl Query {
             order_id: None,
             orig_client_order_id: Some(orig_client_order_id.to_owned()),
             recv_window: None,
-            timestamp: Utc::now().timestamp_millis() - crate::r#const::REQUEST_TIMESTAMP_OFFSET,
+            timestamp: Utc::now().timestamp_millis(),
         }
     }
 }

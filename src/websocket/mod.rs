@@ -2,8 +2,6 @@
 //! The Binance WebSocket adapter.
 //!
 
-pub mod error;
-
 use std::sync::mpsc;
 use std::thread;
 
@@ -14,8 +12,7 @@ use websocket::OwnedMessage;
 use crate::data::event::depth::Depth;
 use crate::data::event::trade::Trade;
 use crate::data::event::Event;
-
-use self::error::Error;
+use crate::error::Error;
 
 ///
 /// The Binance WebSocket client.
@@ -36,9 +33,9 @@ impl Client {
                 symbol.to_ascii_lowercase()
             );
             let mut client = ClientBuilder::new(&address)
-                .expect(crate::panic::WEBSOCKET_ADDRESS_VALID)
+                .expect("WebSocket address is valid")
                 .connect_secure(None)
-                .map_err(Error::Connection)?;
+                .map_err(Error::WebSocket)?;
 
             let tx = tx.clone();
             thread::spawn(move || loop {
@@ -81,9 +78,9 @@ impl Client {
                 symbol.to_ascii_lowercase()
             );
             let mut client = ClientBuilder::new(&address)
-                .expect(crate::panic::WEBSOCKET_ADDRESS_VALID)
+                .expect("WebSocket address is valid")
                 .connect_secure(None)
-                .map_err(Error::Connection)?;
+                .map_err(Error::WebSocket)?;
 
             thread::spawn(move || loop {
                 let message = match client.recv_message() {

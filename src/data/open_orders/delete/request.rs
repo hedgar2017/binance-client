@@ -27,7 +27,7 @@ impl Query {
         Self {
             symbol,
             recv_window: None,
-            timestamp: Utc::now().timestamp_millis() - crate::r#const::REQUEST_TIMESTAMP_OFFSET,
+            timestamp: Utc::now().timestamp_millis(),
         }
     }
 }

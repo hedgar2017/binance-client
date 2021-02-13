@@ -75,7 +75,7 @@ impl Query {
             iceberg_qty: None,
             new_order_resp_type: Some(ResponseType::Full),
             recv_window: None,
-            timestamp: Utc::now().timestamp_millis() - crate::r#const::REQUEST_TIMESTAMP_OFFSET,
+            timestamp: Utc::now().timestamp_millis(),
         }
     }
 
@@ -96,7 +96,7 @@ impl Query {
             iceberg_qty: None,
             new_order_resp_type: Some(ResponseType::Ack),
             recv_window: None,
-            timestamp: Utc::now().timestamp_millis() - crate::r#const::REQUEST_TIMESTAMP_OFFSET,
+            timestamp: Utc::now().timestamp_millis(),
         }
     }
 }

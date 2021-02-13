@@ -2,9 +2,9 @@
 //! The Binance HTTP adapter.
 //!
 
-pub mod error;
 pub mod response;
 
+use chrono::prelude::Utc;
 use hmac::Hmac;
 use hmac::Mac;
 use hmac::NewMac;
@@ -30,8 +30,8 @@ use crate::data::order::get::response::Response as OrderGetResponse;
 use crate::data::order::post::request::Query as OrderPostQuery;
 use crate::data::order::post::response::Response as OrderPostResponse;
 use crate::data::time::get::response::Response as TimeGetResponse;
+use crate::error::Error;
 
-use self::error::Error;
 use self::response::Response;
 
 ///
@@ -45,6 +45,8 @@ pub struct Client {
     api_key: Option<String>,
     /// The Binance authorization secret key.
     secret_key: Option<String>,
+    /// The request time offset.
+    timestamp_offset: i64,
 }
 
 impl Default for Client {
@@ -58,27 +60,38 @@ type Result<T> = ::std::result::Result<T, Error>;
 impl Client {
     /// The Binance API base URL.
     const BASE_URL: &'static str = "https://api.binance.com";
+    /// The request timestamp offset, which is substituted from the request time to prevent
+    /// the Binance `request window missed` error.
+    const REQUEST_TIMESTAMP_OFFSET: i64 = 1000;
 
     ///
     /// Creates an unauthorized client instance.
     ///
     pub fn new() -> Self {
-        Self {
+        let mut client = Self {
             inner: reqwest::Client::new(),
             api_key: None,
             secret_key: None,
-        }
+            timestamp_offset: 0,
+        };
+
+        client.timestamp_offset = client.timestamp_offset();
+        client
     }
 
     ///
     /// Creates an authorized client instance.
     ///
     pub fn new_with_auth(api_key: String, secret_key: String) -> Self {
-        Self {
+        let mut client = Self {
             inner: reqwest::Client::new(),
             api_key: Some(api_key),
             secret_key: Some(secret_key),
-        }
+            timestamp_offset: 0,
+        };
+
+        client.timestamp_offset = client.timestamp_offset();
+        client
     }
 
     ///
@@ -126,11 +139,13 @@ impl Client {
     ///
     /// Get the account info and balances.
     ///
-    pub fn account_get(&self, request: AccountGetQuery) -> Result<AccountGetResponse> {
+    pub fn account_get(&self, mut request: AccountGetQuery) -> Result<AccountGetResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
             .ok_or(Error::AuthorizationKeysMissing)?;
+
+        request.timestamp -= self.timestamp_offset;
 
         let mut params = request.to_string();
         params += &format!("&signature={}", Self::signature(&params, secret_key));
@@ -144,11 +159,16 @@ impl Client {
     ///
     /// Get the account open orders.
     ///
-    pub fn open_orders_get(&self, request: OpenOrdersGetQuery) -> Result<OpenOrdersGetResponse> {
+    pub fn open_orders_get(
+        &self,
+        mut request: OpenOrdersGetQuery,
+    ) -> Result<OpenOrdersGetResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
             .ok_or(Error::AuthorizationKeysMissing)?;
+
+        request.timestamp -= self.timestamp_offset;
 
         let mut params = request.to_string();
         params += &format!("&signature={}", Self::signature(&params, secret_key));
@@ -164,12 +184,14 @@ impl Client {
     ///
     pub fn open_orders_delete(
         &self,
-        request: OpenOrdersDeleteQuery,
+        mut request: OpenOrdersDeleteQuery,
     ) -> Result<OpenOrdersDeleteResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
             .ok_or(Error::AuthorizationKeysMissing)?;
+
+        request.timestamp -= self.timestamp_offset;
 
         let mut params = request.to_string();
         params += &format!("&signature={}", Self::signature(&params, secret_key));
@@ -183,11 +205,13 @@ impl Client {
     ///
     /// Check an order's status.
     ///
-    pub fn order_get(&self, request: OrderGetQuery) -> Result<OrderGetResponse> {
+    pub fn order_get(&self, mut request: OrderGetQuery) -> Result<OrderGetResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
             .ok_or(Error::AuthorizationKeysMissing)?;
+
+        request.timestamp -= self.timestamp_offset;
 
         let mut params = request.to_string();
         params += &format!("&signature={}", Self::signature(&params, secret_key));
@@ -198,11 +222,13 @@ impl Client {
     ///
     /// Send in a new order.
     ///
-    pub fn order_post(&self, request: OrderPostQuery) -> Result<OrderPostResponse> {
+    pub fn order_post(&self, mut request: OrderPostQuery) -> Result<OrderPostResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
             .ok_or(Error::AuthorizationKeysMissing)?;
+
+        request.timestamp -= self.timestamp_offset;
 
         let mut params = request.to_string();
         params += &format!("&signature={}", Self::signature(&params, secret_key));
@@ -213,11 +239,13 @@ impl Client {
     ///
     /// Cancel an active order.
     ///
-    pub fn order_delete(&self, request: OrderDeleteQuery) -> Result<OrderDeleteResponse> {
+    pub fn order_delete(&self, mut request: OrderDeleteQuery) -> Result<OrderDeleteResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
             .ok_or(Error::AuthorizationKeysMissing)?;
+
+        request.timestamp -= self.timestamp_offset;
 
         let mut params = request.to_string();
         params += &format!("&signature={}", Self::signature(&params, secret_key));
@@ -232,11 +260,13 @@ impl Client {
     /// Test new order creation and signature/recvWindow long.
     /// Creates and validates a new order but does not send it into the matching engine.
     ///
-    pub fn order_post_test(&self, request: OrderPostQuery) -> Result<OrderPostResponse> {
+    pub fn order_post_test(&self, mut request: OrderPostQuery) -> Result<OrderPostResponse> {
         let secret_key = self
             .secret_key
             .as_ref()
             .ok_or(Error::AuthorizationKeysMissing)?;
+
+        request.timestamp -= self.timestamp_offset;
 
         let mut params = request.to_string();
         params += &format!("&signature={}", Self::signature(&params, secret_key));
@@ -324,11 +354,23 @@ impl Client {
         hex::encode(
             {
                 let mut hmac: Hmac<Sha256> =
-                    Hmac::new_varkey(secret_key.as_bytes()).expect(crate::panic::HMAC_ALWAYS_VALID);
+                    Hmac::new_varkey(secret_key.as_bytes()).expect("HMAC is valid");
                 hmac.update(params.as_bytes());
                 hmac.finalize().into_bytes()
             }
             .to_vec(),
         )
+    }
+
+    ///
+    /// Calculates the request timestamp offsets between the system time and Binance time.
+    ///
+    fn timestamp_offset(&self) -> i64 {
+        let system_time = Utc::now().timestamp_millis();
+        let request_time = std::time::Instant::now();
+        let binance_time = self.time().expect("Time request").server_time
+            - (request_time.elapsed().as_millis() as i64) / 2;
+
+        (system_time - binance_time) + Self::REQUEST_TIMESTAMP_OFFSET
     }
 }

@@ -1,35 +1,38 @@
 //!
-//! The Binance HTTP error.
+//! The Binance error.
 //!
 
-use failure::Fail;
+use thiserror::Error;
 
 use crate::data::error::Error as ResponseError;
 
 ///
-/// The Binance HTTP client error.
+/// The Binance error.
 ///
-#[derive(Debug, Fail)]
+#[derive(Debug, Error)]
 pub enum Error {
     /// The request URL parsing error. Can happen on invalid user input.
-    #[fail(display = "URL {} parsing: {}", _1, _0)]
+    #[error("URL {} parsing: {0}")]
     UrlParsing(reqwest::UrlError, String),
     /// The request building error. Can happen on invalid user input.
-    #[fail(display = "request building: {}", _0)]
+    #[error("request building: {0}")]
     RequestBuilding(reqwest::Error),
     /// The authorization keys data missing. The client was created without them.
-    #[fail(display = "authorization keys missing. Please, add create a client with keys")]
+    #[error("authorization keys missing. Please, add create a client with keys")]
     AuthorizationKeysMissing,
     /// The request execution error. Usually happens due to some network errors.
-    #[fail(display = "request execution: {}", _0)]
+    #[error("request execution: {0}")]
     RequestExecution(reqwest::Error),
     /// The response reading error.
-    #[fail(display = "response reading: {}", _0)]
+    #[error("response reading: {0}")]
     ResponseReading(reqwest::Error),
     /// The response parsing error. Binance returned invalid data or the data model must be updated.
-    #[fail(display = "response parsing: {} ({})", _0, _1)]
+    #[error("response parsing: {0} ({1})")]
     ResponseParsing(serde_json::Error, String),
     /// The response is valid, but Binance returned an application-level error.
-    #[fail(display = "response error: {:?}", _0)]
+    #[error("response error: {0:?}")]
     ResponseError(ResponseError),
+    /// The WebSocket error.
+    #[error("WebSocket: {0}")]
+    WebSocket(websocket::WebSocketError),
 }

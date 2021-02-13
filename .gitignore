@@ -4,4 +4,3 @@
 
 # Rust build
 /target/
-/Cargo.lock

@@ -1,16 +1,20 @@
 [package]
 name = "binance-client"
-version = "1.4.3"
+version = "1.4.4"
 authors = ["hedgar2017 <hedgar2017@gmail.com>"]
 edition = "2018"
 license = "MIT"
 description = "The Binance cryptocurrency exchange client"
 repository = "https://github.com/hedgar2017/binance-client"
 
+[[bin]]
+name = "time"
+path = "src/examples/time.rs"
+
 [dependencies]
 env_logger = "0.8"
 log = "0.4"
-failure = "0.1"
+thiserror = "1.0"
 
 serde = "1.0"
 serde_json = "1.0"
