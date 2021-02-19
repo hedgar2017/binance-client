@@ -2,6 +2,8 @@
 //! The Binance WebSocket adapter.
 //!
 
+pub mod event;
+
 use std::sync::mpsc;
 use std::thread;
 
@@ -9,10 +11,11 @@ use websocket::client::ClientBuilder;
 use websocket::ws::dataframe::DataFrame;
 use websocket::OwnedMessage;
 
-use crate::data::event::depth::Depth;
-use crate::data::event::trade::Trade;
-use crate::data::event::Event;
 use crate::error::Error;
+
+use self::event::depth::Depth;
+use self::event::trade::Trade;
+use self::event::Event;
 
 ///
 /// The Binance WebSocket client.

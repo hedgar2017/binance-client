@@ -4,7 +4,7 @@
 
 use thiserror::Error;
 
-use crate::data::error::Error as ResponseError;
+use crate::http_api_v3::data::error::Error as ResponseError;
 
 ///
 /// The Binance error.

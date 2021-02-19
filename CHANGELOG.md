@@ -1,4 +1,8 @@
-# The Binance client changelog
+# Changelog
+
+## Version 1.5.0 (2021-02-19)
+
+- added the exchange info endpoints from the front-end API
 
 ## Version 1.4.4 (2021-02-13)
 

@@ -8,7 +8,7 @@ use chrono::prelude::*;
 /// The Binance time request example.
 ///
 fn main() {
-    let client = binance_client::HttpClient::new();
+    let client = binance_client::HttpApiV3Client::new();
 
     let system_time = Utc::now().timestamp_millis();
     let request_time = std::time::Instant::now();
