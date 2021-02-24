@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.5.1 (2021-02-24)
+
+- fix the incorrect type of the product market open timestamp.
+
 ## Version 1.5.0 (2021-02-19)
 
 - added the exchange info endpoints from the front-end API

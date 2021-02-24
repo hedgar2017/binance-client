@@ -33,7 +33,7 @@ pub struct Symbol {
     pub quantity_tick: Decimal,
     /// The market open timestamp, if the symbol is not being traded yet.
     #[serde(rename = "planToOpenMarketTime")]
-    pub plan_to_open_market_time: Option<String>,
+    pub plan_to_open_market_time: Option<u64>,
 }
 
 impl Symbol {
