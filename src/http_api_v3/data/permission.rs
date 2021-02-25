@@ -7,7 +7,7 @@ use serde::Deserialize;
 ///
 /// The trading method allowed for the symbol.
 ///
-#[derive(Debug, Deserialize, Clone, Copy, PartialEq)]
+#[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum Permission {
     /// The spot trading.

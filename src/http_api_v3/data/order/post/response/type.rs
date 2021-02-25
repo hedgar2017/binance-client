@@ -5,7 +5,7 @@
 ///
 /// The `https://www.binance.com/api/v3/order` POST response type.
 ///
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Type {
     /// The ack-type. See the `ack` module.
     Ack,

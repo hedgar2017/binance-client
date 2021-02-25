@@ -16,5 +16,9 @@ fn main() {
         .get_product_by_symbol(ProductBySymbolGetQuery::new(SYMBOL.to_owned()))
         .expect("Product request");
 
-    println!("{} status: {:?}", SYMBOL, symbol.data.status);
+    println!(
+        "{} status: {:?}",
+        SYMBOL,
+        symbol.data.map(|symbol| symbol.status)
+    );
 }

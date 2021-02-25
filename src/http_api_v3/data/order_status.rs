@@ -7,7 +7,7 @@ use serde::Deserialize;
 ///
 /// The order status.
 ///
-#[derive(Debug, Deserialize, Clone, Copy)]
+#[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum OrderStatus {
     /// The order is just created.

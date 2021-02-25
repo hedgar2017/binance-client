@@ -5,7 +5,7 @@
 use rust_decimal::Decimal;
 use serde::Deserialize;
 
-#[derive(Debug, Deserialize, Clone, Copy)]
+#[derive(Debug, Deserialize, Clone, PartialEq)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE", tag = "filterType")]
 pub enum Filter {
     #[serde(rename_all = "camelCase")]

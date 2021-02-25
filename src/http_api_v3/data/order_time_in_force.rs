@@ -7,7 +7,7 @@ use serde::Deserialize;
 ///
 /// The order time-in-force. See the below descriptions.
 ///
-#[derive(Debug, Deserialize, Clone, Copy)]
+#[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum OrderTimeInForce {
     /// The default time-in-force. Effective until the trade is executed or cancelled.
     #[serde(rename = "GTC")]

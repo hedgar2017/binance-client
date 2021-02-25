@@ -15,8 +15,8 @@ pub struct Response<T> {
     pub message: Option<String>,
     /// The response message detail. Usually `null`.
     pub message_detail: Option<String>,
-    /// The response data.
-    pub data: T,
+    /// The response data. May be `null` if requested by the symbol name.
+    pub data: Option<T>,
     /// The response status.
     pub success: bool,
 }

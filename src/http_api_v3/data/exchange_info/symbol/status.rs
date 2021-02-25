@@ -7,7 +7,7 @@ use serde::Deserialize;
 ///
 /// The status of a trading symbol.
 ///
-#[derive(Debug, Deserialize, Clone, Copy)]
+#[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum Status {
     /// Not available for trading.

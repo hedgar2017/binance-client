@@ -7,7 +7,7 @@ use serde::Deserialize;
 ///
 /// The order side.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum OrderSide {
     /// The buy order.
