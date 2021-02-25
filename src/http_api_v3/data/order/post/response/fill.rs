@@ -8,7 +8,7 @@ use serde::Deserialize;
 ///
 /// The order partial fill.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Fill {
     /// The trade event price.

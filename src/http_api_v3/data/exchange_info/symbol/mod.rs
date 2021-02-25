@@ -17,7 +17,7 @@ use self::status::Status;
 ///
 /// The trading symbol data.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Symbol {
     /// The symbol name.

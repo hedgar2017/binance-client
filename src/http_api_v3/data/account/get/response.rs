@@ -12,7 +12,7 @@ use crate::http_api_v3::data::permission::Permission;
 ///
 /// The `https://www.binance.com/api/v3/account` GET response.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Response {
     /// The maker fee.

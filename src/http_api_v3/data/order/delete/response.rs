@@ -13,7 +13,7 @@ use crate::http_api_v3::data::order_type::OrderType;
 ///
 /// The `https://www.binance.com/api/v3/order` POST response.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Response {
     /// The symbol name.

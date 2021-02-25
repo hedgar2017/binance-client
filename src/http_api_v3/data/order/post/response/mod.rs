@@ -17,7 +17,7 @@ use serde::Deserialize;
 ///
 /// The `https://www.binance.com/api/v3/order` POST response.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(untagged)]
 pub enum Response {
     /// The full-type response. See the inner element description.

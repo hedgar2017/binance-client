@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.5.3 (2021-02-25)
+
+- added the `Clone` trait for all types
+
 ## Version 1.5.2 (2021-02-25)
 
 - added `PartialEq`, `Eq`, `Hash` traits for all `Copy` types

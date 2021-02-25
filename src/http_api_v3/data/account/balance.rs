@@ -8,7 +8,7 @@ use serde::Deserialize;
 ///
 /// The account balance.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Balance {
     /// The token name.

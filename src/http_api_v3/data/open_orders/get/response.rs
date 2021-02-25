@@ -18,7 +18,7 @@ pub type Response = Vec<OpenOrder>;
 ///
 /// A single open order element.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct OpenOrder {
     /// The symbol name.

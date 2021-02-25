@@ -15,7 +15,7 @@ use crate::http_api_v3::data::order_type::OrderType;
 ///
 /// Result response contains all the order data, except for the partial order fills.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Result {
     /// The symbol name.

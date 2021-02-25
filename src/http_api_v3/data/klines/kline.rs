@@ -8,7 +8,7 @@ use serde::Deserialize;
 ///
 /// A single kline.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Kline {
     /// The kline open time in milliseconds since Unix epoch.

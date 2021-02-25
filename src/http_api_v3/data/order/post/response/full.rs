@@ -16,7 +16,7 @@ use crate::http_api_v3::data::order_type::OrderType;
 ///
 /// Full response contains all the order data, which is usually returned for market orders.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Full {
     /// The symbol name.

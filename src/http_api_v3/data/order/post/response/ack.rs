@@ -9,7 +9,7 @@ use serde::Deserialize;
 ///
 /// Ack response does not contain any order data, but only the acknowledgement of being accepted.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Ack {
     /// The symbol name.

@@ -10,7 +10,7 @@ use crate::http_exchange_api_v2::data::status::Status;
 ///
 /// The trading symbol data.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Symbol {
     /// The symbol name.

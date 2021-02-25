@@ -9,7 +9,7 @@ use crate::http_api_v3::data::depth_element::DepthElement;
 ///
 /// The `https://www.binance.com/api/v3/depth` GET response.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Response {
     /// The last update ID.

@@ -9,7 +9,7 @@ use crate::http_api_v3::data::exchange_info::symbol::Symbol;
 ///
 /// The `https://www.binance.com/api/v3/exchangeInfo` GET response.
 ///
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Response {
     /// The server timezone name.
