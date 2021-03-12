@@ -16,6 +16,7 @@ pub use self::http_api_v3::data::depth::get::response::Response as DepthGetRespo
 pub use self::http_api_v3::data::depth_element::DepthElement;
 pub use self::http_api_v3::data::exchange_info::get::response::Response as ExchangeInfoGetResponse;
 pub use self::http_api_v3::data::exchange_info::symbol::status::Status as ExchangeInfoSymbolStatus;
+pub use self::http_api_v3::data::exchange_info::symbol::filter::Filter as ExchangeInfoFilter;
 pub use self::http_api_v3::data::exchange_info::symbol::Symbol as ExchangeInfoSymbol;
 pub use self::http_api_v3::data::interval::Interval;
 pub use self::http_api_v3::data::klines::get::request::Query as KlinesGetQuery;
