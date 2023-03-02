@@ -25,7 +25,7 @@ impl Query {
 impl ToString for Query {
     fn to_string(&self) -> String {
         let mut params = String::with_capacity(Self::QUERY_INITIAL_CAPACITY);
-        params += &format!("includeEtf={}", self.include_etf.to_string());
+        params += &format!("includeEtf={}", self.include_etf);
         params
     }
 }

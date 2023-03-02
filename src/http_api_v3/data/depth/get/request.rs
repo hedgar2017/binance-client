@@ -32,7 +32,7 @@ impl ToString for Query {
         let mut params = String::with_capacity(Self::QUERY_INITIAL_CAPACITY);
         params += &format!("symbol={}", self.symbol.to_owned());
         if let Some(limit) = self.limit {
-            params += &format!("&limit={}", limit.to_string());
+            params += &format!("&limit={}", limit);
         }
         params
     }

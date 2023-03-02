@@ -48,7 +48,7 @@ impl ToString for Query {
     fn to_string(&self) -> String {
         let mut params = String::with_capacity(Self::QUERY_INITIAL_CAPACITY);
         params += &format!("symbol={}", self.symbol.to_owned());
-        params += &format!("&interval={}", self.interval.to_string());
+        params += &format!("&interval={}", self.interval);
         if let Some(start_time) = self.start_time {
             params += &format!("&startTime={}", start_time);
         }

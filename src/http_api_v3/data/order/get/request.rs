@@ -43,15 +43,15 @@ impl ToString for Query {
         let mut params = String::with_capacity(Self::QUERY_INITIAL_CAPACITY);
         params += &format!("symbol={}", self.symbol.to_owned());
         if let Some(order_id) = self.order_id {
-            params += &format!("&orderId={}", order_id.to_string());
+            params += &format!("&orderId={}", order_id);
         }
         if let Some(ref orig_client_order_id) = self.orig_client_order_id {
             params += &format!("&origClientOrderId={}", orig_client_order_id.to_owned());
         }
         if let Some(recv_window) = self.recv_window {
-            params += &format!("&recvWindow={}", recv_window.to_string());
+            params += &format!("&recvWindow={}", recv_window);
         }
-        params += &format!("&timestamp={}", self.timestamp.to_string());
+        params += &format!("&timestamp={}", self.timestamp);
         params
     }
 }

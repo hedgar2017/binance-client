@@ -3,6 +3,7 @@
 //!
 
 use serde::Deserialize;
+use std::fmt::Formatter;
 
 ///
 /// The order time.
@@ -29,18 +30,17 @@ pub enum OrderType {
     Other,
 }
 
-impl ToString for OrderType {
-    fn to_string(&self) -> String {
+impl std::fmt::Display for OrderType {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Limit => "LIMIT",
-            Self::Market => "MARKET",
-            Self::StopLoss => "STOP_LOSS",
-            Self::StopLossLimit => "STOP_LOSS_LIMIT",
-            Self::TakeProfit => "TAKE_PROFIT",
-            Self::TakeProfitLimit => "TAKE_PROFIT_LIMIT",
-            Self::LimitMaker => "LIMIT_MAKER",
-            Self::Other => "OTHER",
+            Self::Limit => write!(f, "LIMIT"),
+            Self::Market => write!(f, "MARKET"),
+            Self::StopLoss => write!(f, "STOP_LOSS"),
+            Self::StopLossLimit => write!(f, "STOP_LOSS_LIMIT"),
+            Self::TakeProfit => write!(f, "TAKE_PROFIT"),
+            Self::TakeProfitLimit => write!(f, "TAKE_PROFIT_LIMIT"),
+            Self::LimitMaker => write!(f, "LIMIT_MAKER"),
+            Self::Other => write!(f, "OTHER"),
         }
-        .to_owned()
     }
 }

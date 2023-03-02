@@ -12,7 +12,7 @@ use crate::http_api_v3::data::error::Error as ResponseError;
 #[derive(Debug, Error)]
 pub enum Error {
     /// The request URL parsing error. Can happen on invalid user input.
-    #[error("URL {} parsing: {0}")]
+    #[error("URL {0} parsing: {1}")]
     UrlParsing(reqwest::UrlError, String),
     /// The request building error. Can happen on invalid user input.
     #[error("request building: {0}")]

@@ -353,15 +353,12 @@ impl Client {
     /// Generates an HMAC signature for authorized requests.
     ///
     fn signature(params: &str, secret_key: &str) -> String {
-        hex::encode(
-            {
-                let mut hmac: Hmac<Sha256> =
-                    Hmac::new_varkey(secret_key.as_bytes()).expect("HMAC is valid");
-                hmac.update(params.as_bytes());
-                hmac.finalize().into_bytes()
-            }
-            .to_vec(),
-        )
+        hex::encode({
+            let mut hmac: Hmac<Sha256> =
+                Hmac::new_varkey(secret_key.as_bytes()).expect("HMAC is valid");
+            hmac.update(params.as_bytes());
+            hmac.finalize().into_bytes()
+        })
     }
 
     ///

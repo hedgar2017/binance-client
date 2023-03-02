@@ -3,6 +3,7 @@
 //!
 
 use serde::Deserialize;
+use std::fmt::Formatter;
 
 ///
 /// The order side.
@@ -16,12 +17,11 @@ pub enum OrderSide {
     Sell,
 }
 
-impl ToString for OrderSide {
-    fn to_string(&self) -> String {
+impl std::fmt::Display for OrderSide {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Buy => "BUY",
-            Self::Sell => "SELL",
+            Self::Buy => write!(f, "BUY"),
+            Self::Sell => write!(f, "SELL"),
         }
-        .to_owned()
     }
 }

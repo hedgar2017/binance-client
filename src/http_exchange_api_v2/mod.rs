@@ -53,7 +53,7 @@ impl Client {
         self.execute::<ProductsGetResponse>(
             Method::GET,
             format!(
-                "/exchange-api/v2/public/asset-service/product/get-products?{}",
+                "/bapi/asset/v2/public/asset-service/product/get-products?{}",
                 request.to_string()
             ),
         )
@@ -69,7 +69,7 @@ impl Client {
         self.execute::<ProductBySymbolGetResponse>(
             Method::GET,
             format!(
-                "/exchange-api/v2/public/asset-service/product/get-product-by-symbol?{}",
+                "/bapi/asset/v2/public/asset-service/product/get-product-by-symbol?{}",
                 request.to_string()
             ),
         )

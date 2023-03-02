@@ -3,6 +3,7 @@
 //!
 
 use serde::Deserialize;
+use std::fmt::Formatter;
 
 ///
 /// The order time-in-force. See the below descriptions.
@@ -20,13 +21,12 @@ pub enum OrderTimeInForce {
     FillOrKill,
 }
 
-impl ToString for OrderTimeInForce {
-    fn to_string(&self) -> String {
+impl std::fmt::Display for OrderTimeInForce {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::GoodTilCanceled => "GTC",
-            Self::ImmediateOrCancel => "IOC",
-            Self::FillOrKill => "FOK",
+            Self::GoodTilCanceled => write!(f, "GTC"),
+            Self::ImmediateOrCancel => write!(f, "IOC"),
+            Self::FillOrKill => write!(f, "FOK"),
         }
-        .to_owned()
     }
 }

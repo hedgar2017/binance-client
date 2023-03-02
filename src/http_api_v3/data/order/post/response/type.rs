@@ -2,6 +2,8 @@
 //! The order POST response type.
 //!
 
+use std::fmt::Formatter;
+
 ///
 /// The `https://www.binance.com/api/v3/order` POST response type.
 ///
@@ -15,13 +17,12 @@ pub enum Type {
     Full,
 }
 
-impl ToString for Type {
-    fn to_string(&self) -> String {
+impl std::fmt::Display for Type {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Ack => "ACK",
-            Self::Result => "RESULT",
-            Self::Full => "FULL",
+            Self::Ack => write!(f, "ACK"),
+            Self::Result => write!(f, "RESULT"),
+            Self::Full => write!(f, "FULL"),
         }
-        .to_owned()
     }
 }

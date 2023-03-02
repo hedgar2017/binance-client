@@ -39,9 +39,9 @@ impl ToString for Query {
             params += &format!("symbol={}", symbol);
         }
         if let Some(recv_window) = self.recv_window {
-            params += &format!("&recvWindow={}", recv_window.to_string());
+            params += &format!("&recvWindow={}", recv_window);
         }
-        params += &format!("&timestamp={}", self.timestamp.to_string());
+        params += &format!("&timestamp={}", self.timestamp);
         params
     }
 }

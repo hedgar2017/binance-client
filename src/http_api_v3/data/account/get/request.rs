@@ -39,9 +39,9 @@ impl ToString for Query {
     fn to_string(&self) -> String {
         let mut params = String::with_capacity(Self::QUERY_INITIAL_CAPACITY);
         if let Some(recv_window) = self.recv_window {
-            params += &format!("&recvWindow={}", recv_window.to_string());
+            params += &format!("&recvWindow={}", recv_window);
         }
-        params += &format!("&timestamp={}", self.timestamp.to_string());
+        params += &format!("&timestamp={}", self.timestamp);
         params
     }
 }

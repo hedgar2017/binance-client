@@ -105,36 +105,36 @@ impl ToString for Query {
     fn to_string(&self) -> String {
         let mut params = String::with_capacity(Self::QUERY_INITIAL_CAPACITY);
         params += &format!("symbol={}", self.symbol.to_owned());
-        params += &format!("&side={}", self.side.to_string());
-        params += &format!("&type={}", self.r#type.to_string());
+        params += &format!("&side={}", self.side);
+        params += &format!("&type={}", self.r#type);
         if let Some(time_in_force) = self.time_in_force {
-            params += &format!("&timeInForce={}", time_in_force.to_string());
+            params += &format!("&timeInForce={}", time_in_force);
         }
         if let Some(quantity) = self.quantity {
-            params += &format!("&quantity={}", quantity.to_string());
+            params += &format!("&quantity={}", quantity);
         }
         if let Some(quote_order_qty) = self.quote_order_qty {
-            params += &format!("&quoteOrderQty={}", quote_order_qty.to_string());
+            params += &format!("&quoteOrderQty={}", quote_order_qty);
         }
         if let Some(price) = self.price {
-            params += &format!("&price={}", price.to_string());
+            params += &format!("&price={}", price);
         }
         if let Some(ref new_client_order_id) = self.new_client_order_id {
             params += &format!("&newClientOrderId={}", new_client_order_id.to_owned());
         }
         if let Some(stop_price) = self.stop_price {
-            params += &format!("&stopPrice={}", stop_price.to_string());
+            params += &format!("&stopPrice={}", stop_price);
         }
         if let Some(iceberg_qty) = self.iceberg_qty {
-            params += &format!("&icebergQty={}", iceberg_qty.to_string());
+            params += &format!("&icebergQty={}", iceberg_qty);
         }
         if let Some(new_order_resp_type) = self.new_order_resp_type {
-            params += &format!("&newOrderRespType={}", new_order_resp_type.to_string());
+            params += &format!("&newOrderRespType={}", new_order_resp_type);
         }
         if let Some(recv_window) = self.recv_window {
-            params += &format!("&recvWindow={}", recv_window.to_string());
+            params += &format!("&recvWindow={}", recv_window);
         }
-        params += &format!("&timestamp={}", self.timestamp.to_string());
+        params += &format!("&timestamp={}", self.timestamp);
         params
     }
 }

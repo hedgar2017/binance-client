@@ -60,9 +60,9 @@ pub enum Interval {
     Month1,
 }
 
-impl Into<i64> for Interval {
-    fn into(self) -> i64 {
-        match self {
+impl From<Interval> for i64 {
+    fn from(value: Interval) -> i64 {
+        match value {
             Interval::Minute1 => 60,
             Interval::Minute3 => 180,
             Interval::Minute5 => 300,
